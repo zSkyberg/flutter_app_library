@@ -161,7 +161,8 @@ class _MyAppState extends State<MyApp> {
                                 Padding(
                                   padding: const EdgeInsets.all(20.0),
                                   child: CircleAvatar(
-                                    // backgroundImage: AssetImage('images/bitcionimage.png'),
+                                     backgroundImage: NetworkImage('https://static.coincap.io/assets/icons/${snapshot.data.data[index].symbol.toLowerCase()}@2x.png'),
+                                    backgroundColor: Colors.white,
                                     radius: 20,
                                   ),
                                 ),
@@ -176,8 +177,13 @@ class _MyAppState extends State<MyApp> {
                                 ),
                                 Column(
                                   children: [
-                                    Text("${snapshot.data.data[index].priceUsd}"),
-                                    Text("${snapshot.data.data[index].changePercent24Hr}"),
+                                    Row(
+                                      children: [
+                                        Text("${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+4)} \$"),
+                                      ],
+                                    ),
+
+                                    Text("${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+6)} %"),
                                   ],
                                 ),
                               ],
