@@ -215,13 +215,14 @@ class _MyAppState extends State<MyApp> {
                                             child: Text("${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+4).replaceAllMapped(reg, mathFunc)} \$",
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: 16,
                                             )
                                             ),
                                           ),
                                           Text("${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+3)} %",
                                             style: TextStyle(
-                                            fontSize: 15,
+                                            fontSize: 16,
+                                              color: double.parse(snapshot.data.data[index].changePercent24Hr) > 0 ? Colors.green : Colors.red,
                                             )
                                             ),
 
