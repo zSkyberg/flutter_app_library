@@ -287,7 +287,7 @@ class _MyAppState extends State<MyApp> {
                                     children: [
                                           Padding(
                                             padding: const EdgeInsets.all(4.0),
-                                            child: Text(" \$${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+4).replaceAllMapped(reg, mathFunc)} ",
+                                            child: Text( double.parse(snapshot.data.data[index].priceUsd) > 1 ? "\$${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+3).replaceAllMapped(reg, mathFunc)}" : "\$${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+5)}",
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
                                               fontSize: 16,
