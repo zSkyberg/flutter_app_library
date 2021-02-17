@@ -2,6 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+// import 'package:intl/intl_browser.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/intl_standalone.dart';
+
 import 'dart:convert';
 import 'package:flutter_easyrefresh/bezier_circle_header.dart';
 import 'package:flutter_easyrefresh/bezier_hour_glass_header.dart';
@@ -101,13 +105,13 @@ class Data {
 void main() => runApp(new MyApp());
 
 class MyApp extends StatefulWidget {
-  @override
+  @override static String systemLocale = 'en_US';
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
   Future<Dataa> futureData;
-
+  static String systemLocale = 'en_US';
   void initState() {
     super.initState();
     futureData = fetchData();
@@ -185,7 +189,7 @@ class _MyAppState extends State<MyApp> {
                                 Expanded(
                                   flex: 3,
                                   child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                                 crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
@@ -225,7 +229,6 @@ class _MyAppState extends State<MyApp> {
                                               color: double.parse(snapshot.data.data[index].changePercent24Hr) > 0 ? Colors.green : Colors.red,
                                             )
                                             ),
-
                                     ],
                                   ),
                                 ),
@@ -236,7 +239,7 @@ class _MyAppState extends State<MyApp> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
-                                        child: Text("${snapshot.data.data[index].volumeUsd24Hr.substring(0,snapshot.data.data[index].volumeUsd24Hr.indexOf('.')).replaceAllMapped(reg, mathFunc)} \$",
+                                        child:  Text("${NumberFormat.compact().format(double.parse(snapshot.data.data[index].volumeUsd24Hr))} \$",
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
                                               fontSize: 15,
@@ -248,7 +251,6 @@ class _MyAppState extends State<MyApp> {
                                             fontSize: 15,
                                           )
                                       ),
-
                                     ],
                                   ),
                                 ),
