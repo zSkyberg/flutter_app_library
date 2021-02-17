@@ -142,11 +142,14 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CryptoCurrency',
+      color:Colors.black,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+         primaryColor: Colors.black54,
       ),
       home: Scaffold(
         appBar: AppBar(
+
           title: Text('CryptoCurrency'),
         ),
         body: Center(
@@ -284,7 +287,7 @@ class _MyAppState extends State<MyApp> {
                                     children: [
                                           Padding(
                                             padding: const EdgeInsets.all(4.0),
-                                            child: Text("${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+4).replaceAllMapped(reg, mathFunc)} \$",
+                                            child: Text(" \$${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+4).replaceAllMapped(reg, mathFunc)} ",
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
                                               fontSize: 16,
@@ -292,12 +295,13 @@ class _MyAppState extends State<MyApp> {
                                             )
                                             ),
                                           ),
-                                          Text("${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+3)} %",
-                                            style: TextStyle(
+
+                                      Text( double.parse(snapshot.data.data[index].changePercent24Hr) > 0 ? "+${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+3)}%": "${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+3)}%",
+                                          style: TextStyle(
                                             fontSize: 16,
-                                              color: double.parse(snapshot.data.data[index].changePercent24Hr) > 0 ? Colors.green : Colors.red,
-                                            )
-                                            ),
+                                            color: double.parse(snapshot.data.data[index].changePercent24Hr) > 0 ? Colors.green : Colors.red,
+                                          )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -308,7 +312,7 @@ class _MyAppState extends State<MyApp> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
-                                        child:  Text("${NumberFormat.compact().format(double.parse(snapshot.data.data[index].volumeUsd24Hr))} \$",
+                                        child:  Text("\$${NumberFormat.compact().format(double.parse(snapshot.data.data[index].volumeUsd24Hr))}",
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
                                               fontSize: 15,
