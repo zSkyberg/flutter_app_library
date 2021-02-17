@@ -139,7 +139,6 @@ class _MyAppState extends State<MyApp> {
   RegExp reg = new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
   Function mathFunc = (Match match) => '${match[1]},';
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -174,16 +173,79 @@ class _MyAppState extends State<MyApp> {
                     return ListView.builder(
                       itemCount: snapshot.data.data.length,
                       itemBuilder: (context, index) {
+                        if(index == 0){
+                          return Column(
+                           children:[
+                             Card(
+                               color: Colors.blueGrey,
+                               child:
+                                 Row(
+                                   children:[
+                                     Expanded(
+                                       flex:1,
+                                       child: Padding(
+                                         padding: EdgeInsets.only(left: 4.0),
+                                         child: Text("#",
+                                   style: TextStyle(
+                                         fontSize: 20,
+                                       fontWeight: FontWeight.bold
+                                   ),
+                                   ),
+                                       ),
+                                     ),
+                                     Expanded(
+                                       flex: 3,
+                                       child: Text("Name",
+                                         style: TextStyle(
+                                           fontSize: 20,
+                                             fontWeight: FontWeight.bold
+                                         ),
+                                       ),
+                                     ),
+                                     Expanded(
+                                       flex:4,
+                                       child: Text("Price/24h",
+                                         style: TextStyle(
+                                           fontSize: 20,
+                                             fontWeight: FontWeight.bold
+                                         ),
+                                       ),
+                                     ),
+                                     Expanded(
+                                       flex:2,
+                                       child: Text("Volume",
+                                         style: TextStyle(
+                                           fontSize: 20,
+                                           fontWeight: FontWeight.bold
+                                         ),
+                                       ),
+                                     ),
+                                   ],
+                                 ),
+                             ),
+                           ]
+                          );
+                        }
+                        index-=1;
                         return Container(
                           child: Column(children: [
                             Row(
                               children: [
                                 Padding(
+                                  padding: EdgeInsets.only(left: 4.0),
+                                  child: Text("${snapshot.data.data[index].rank}",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      )
+
+                                  ),
+                                ),
+                                Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: CircleAvatar(
                                      backgroundImage: NetworkImage('https://static.coincap.io/assets/icons/${snapshot.data.data[index].symbol.toLowerCase()}@2x.png'),
                                     backgroundColor: Colors.white,
-                                    radius: 20,
+                                    radius: 17,
                                   ),
                                 ),
                                 Expanded(
@@ -233,7 +295,7 @@ class _MyAppState extends State<MyApp> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex:6,
+                                  flex:5,
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
@@ -245,11 +307,6 @@ class _MyAppState extends State<MyApp> {
                                               fontSize: 15,
                                             )
                                         ),
-                                      ),
-                                      Text("${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+3)} %",
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                          )
                                       ),
                                     ],
                                   ),
