@@ -101,7 +101,6 @@ class Data {
     return data;
   }
 }
-
 void main() => runApp(new MyApp());
 
 class MyApp extends StatefulWidget {
@@ -177,7 +176,7 @@ class _MyAppState extends State<MyApp> {
                           return Column(
                            children:[
                              Card(
-                               color: Colors.blueGrey,
+                               color: Colors.black45,
                                child:
                                  Row(
                                    children:[
@@ -228,6 +227,10 @@ class _MyAppState extends State<MyApp> {
                         }
                         index-=1;
                         return Container(
+                          decoration: BoxDecoration(
+                            color:Colors.black87,
+                            borderRadius: BorderRadius.circular(1)
+                          ),
                           child: Column(children: [
                             Row(
                               children: [
@@ -236,28 +239,30 @@ class _MyAppState extends State<MyApp> {
                                   child: Text("${snapshot.data.data[index].rank}",
                                       style: TextStyle(
                                         fontSize: 20,
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.white70,
                                       )
-
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10.0),
+                                  padding: const EdgeInsets.all(8.0),
                                   child: CircleAvatar(
                                      backgroundImage: NetworkImage('https://static.coincap.io/assets/icons/${snapshot.data.data[index].symbol.toLowerCase()}@2x.png'),
-                                    backgroundColor: Colors.white,
+                                    backgroundColor: Colors.black,
                                     radius: 17,
                                   ),
                                 ),
                                 Expanded(
                                   flex: 3,
                                   child: Column(
-                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.all(4.0),
+                                        padding: EdgeInsets.only(left: 4.0,top: 4.0,bottom:4.0),
                                         child: Text("${snapshot.data.data[index].name}",
                                           style: TextStyle(
                                           fontSize: 15,
+                                            color: Colors.white70,
                                           )
 
                                         ),
@@ -265,6 +270,7 @@ class _MyAppState extends State<MyApp> {
                                       Text("${snapshot.data.data[index].symbol}",
                                           style: TextStyle(
                                           fontSize: 15,
+                                            color: Colors.white70,
                                           )
 
                                       ),
@@ -282,6 +288,7 @@ class _MyAppState extends State<MyApp> {
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
                                               fontSize: 16,
+                                                  color: Colors.white70,
                                             )
                                             ),
                                           ),
@@ -295,7 +302,7 @@ class _MyAppState extends State<MyApp> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex:5,
+                                  flex:4,
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
@@ -305,6 +312,7 @@ class _MyAppState extends State<MyApp> {
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
                                               fontSize: 15,
+                                              color: Colors.white70,
                                             )
                                         ),
                                       ),
@@ -314,6 +322,7 @@ class _MyAppState extends State<MyApp> {
                               ],
                             ),
                             Divider(
+                              color:Colors.black45,
                               indent: 20,
                               endIndent: 20,
                               thickness: 2,
