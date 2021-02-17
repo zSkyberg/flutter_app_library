@@ -3,6 +3,19 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:flutter_easyrefresh/bezier_circle_header.dart';
+import 'package:flutter_easyrefresh/bezier_hour_glass_header.dart';
+import 'package:flutter_easyrefresh/phoenix_footer.dart';
+import 'package:flutter_easyrefresh/taurus_header.dart';
+import 'package:flutter_easyrefresh/phoenix_header.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_easyrefresh/taurus_footer.dart';
+import 'package:flutter_easyrefresh/material_header.dart';
+import 'package:flutter_easyrefresh/delivery_header.dart';
+import 'package:flutter_easyrefresh/material_footer.dart';
+import 'package:flutter_easyrefresh/ball_pulse_header.dart';
+import 'package:flutter_easyrefresh/bezier_bounce_footer.dart';
+import 'package:flutter_easyrefresh/ball_pulse_footer.dart';
 
 class Dataa {
   Dataa({
@@ -119,17 +132,20 @@ class _MyAppState extends State<MyApp> {
       throw Exception('Failed to load album');
     }
   }
+  RegExp reg = new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
+  Function mathFunc = (Match match) => '${match[1]},';
+
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Fetch Data Example',
+      title: 'CryptoCurrency',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Fetch Data Example'),
+          title: Text('CryptoCurrency'),
         ),
         body: Center(
           child: FutureBuilder<Dataa>(
@@ -159,32 +175,81 @@ class _MyAppState extends State<MyApp> {
                             Row(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(20.0),
+                                  padding: const EdgeInsets.all(10.0),
                                   child: CircleAvatar(
                                      backgroundImage: NetworkImage('https://static.coincap.io/assets/icons/${snapshot.data.data[index].symbol.toLowerCase()}@2x.png'),
                                     backgroundColor: Colors.white,
                                     radius: 20,
                                   ),
                                 ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text("${snapshot.data.data[index].name}"),
-                                    ),
-                                    Text("${snapshot.data.data[index].symbol}"),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text("${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+4)} \$"),
-                                      ],
-                                    ),
+                                Expanded(
+                                  flex: 3,
+                                  child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Text("${snapshot.data.data[index].name}",
+                                          style: TextStyle(
+                                          fontSize: 15,
+                                          )
 
-                                    Text("${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+6)} %"),
-                                  ],
+                                        ),
+                                      ),
+                                      Text("${snapshot.data.data[index].symbol}",
+                                          style: TextStyle(
+                                          fontSize: 15,
+                                          )
+
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  flex:6,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Text("${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+4).replaceAllMapped(reg, mathFunc)} \$",
+                                                textAlign: TextAlign.right,
+                                                style: TextStyle(
+                                              fontSize: 15,
+                                            )
+                                            ),
+                                          ),
+                                          Text("${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+3)} %",
+                                            style: TextStyle(
+                                            fontSize: 15,
+                                            )
+                                            ),
+
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  flex:6,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Text("${snapshot.data.data[index].volumeUsd24Hr.substring(0,snapshot.data.data[index].volumeUsd24Hr.indexOf('.')).replaceAllMapped(reg, mathFunc)} \$",
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            )
+                                        ),
+                                      ),
+                                      Text("${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+3)} %",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                          )
+                                      ),
+
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
