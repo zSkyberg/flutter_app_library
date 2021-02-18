@@ -12,7 +12,7 @@ import 'package:flutter_easyrefresh/bezier_hour_glass_header.dart';
 import 'package:flutter_easyrefresh/phoenix_footer.dart';
 import 'package:flutter_easyrefresh/taurus_header.dart';
 import 'package:flutter_easyrefresh/phoenix_header.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
+// import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/taurus_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:flutter_easyrefresh/delivery_header.dart';
@@ -20,7 +20,11 @@ import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/ball_pulse_header.dart';
 import 'package:flutter_easyrefresh/bezier_bounce_footer.dart';
 import 'package:flutter_easyrefresh/ball_pulse_footer.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+// import 'package:pull_to_refresh/pull_to_refresh.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter_easyrefresh/src/footer/footer.dart';
+// import 'package:footer/footer.dart';
+import 'package:footer/footer_view.dart';
 class Dataa {
   Dataa({
     @required this.data,
@@ -104,17 +108,13 @@ class Data {
 void main() => runApp(new MyApp());
 
 class MyApp extends StatefulWidget {
-  @override static String systemLocale = 'en_US';
+  @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
   Future<Dataa> futureData;
   static String systemLocale = 'en_US';
-  void initState() {
-    super.initState();
-    futureData = fetchData();
-  }
 
   Future<Dataa> fetchData() async {
     var url = 'https://api.coincap.io/v2/assets';
@@ -125,23 +125,28 @@ class _MyAppState extends State<MyApp> {
       // then parse the JSON.
       Map<String, dynamic> json = jsonDecode(response.body);
       // print(json["data"][0]);
-      final a = json["data"];
-      print("Hello?");
-      print(json["data"].length);
+      // final a = json["data"];
+      // print("Hello?");
+      // print(json["data"]);
+      setState(() {
+        json = jsonDecode(response.body);
+      });
       return Dataa.fromJson(json);
-
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
+    }
+    else {
+      // If the server did not return a 200 OK response,// then throw an exception.
       throw Exception('Failed to load album');
     }
+
   }
   RegExp reg = new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
   Function mathFunc = (Match match) => '${match[1]},';
 
   @override
   Widget build(BuildContext context) {
-    setState(() {});
+    // setState(() {
+    //   fetchData();
+    // });
     return MaterialApp(
       title: 'CryptoCurrency',
       color:Colors.black,
@@ -157,7 +162,7 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: FutureBuilder<Dataa>(
             future: futureData,
-            builder: (context, AsyncSnapshot<Dataa> snapshot) {
+            builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
                   return Text('none');
@@ -171,171 +176,176 @@ class _MyAppState extends State<MyApp> {
                       '${snapshot.error}',
                       style: TextStyle(color: Colors.red),
                     );
-                  } else
-                    // print("sadsada");
-                    // print(futureData);
-                    return ListView.builder(
-                      itemCount: snapshot.data.data.length,
-                      itemBuilder: (context, index) {
-                        if(index == 0){
-                          return Column(
-                           children:[
-                             Card(
-                               color: Colors.black45,
-                               child:
-                                 Row(
-                                   children:[
-                                     Expanded(
-                                       flex:1,
-                                       child: Padding(
-                                         padding: EdgeInsets.only(left: 4.0),
-                                         child: Text("#",
-                                   style: TextStyle(
-                                         fontSize: 20,
-                                       fontWeight: FontWeight.bold
-                                   ),
-                                   ),
-                                       ),
-                                     ),
-                                     Expanded(
-                                       flex: 3,
-                                       child: Text("Name",
+                  } else {
+                    return Center(
+                        child: RefreshIndicator(
+                          child: ListView.builder(
+                            itemBuilder: (context, index) {
+                              if(index == 0){
+                                return Column(
+                                 children:[
+                                   Card(
+                                     color: Colors.black45,
+                                     child:
+                                       Row(
+                                         children:[
+                                           Expanded(
+                                             flex:1,
+                                             child: Padding(
+                                               padding: EdgeInsets.only(left: 4.0),
+                                               child: Text("#",
                                          style: TextStyle(
-                                           fontSize: 20,
+                                               fontSize: 20,
                                              fontWeight: FontWeight.bold
                                          ),
-                                       ),
-                                     ),
-                                     Expanded(
-                                       flex:4,
-                                       child: Text("Price/24h",
-                                         style: TextStyle(
-                                           fontSize: 20,
-                                             fontWeight: FontWeight.bold
                                          ),
+                                             ),
+                                           ),
+                                           Expanded(
+                                             flex: 3,
+                                             child: Text("Name",
+                                               style: TextStyle(
+                                                 fontSize: 20,
+                                                   fontWeight: FontWeight.bold
+                                               ),
+                                             ),
+                                           ),
+                                           Expanded(
+                                             flex:4,
+                                             child: Text("Price/24h",
+                                               style: TextStyle(
+                                                 fontSize: 20,
+                                                   fontWeight: FontWeight.bold
+                                               ),
+                                             ),
+                                           ),
+                                           Expanded(
+                                             flex:2,
+                                             child: Text("Volume",
+                                               style: TextStyle(
+                                                 fontSize: 20,
+                                                 fontWeight: FontWeight.bold
+                                               ),
+                                             ),
+                                           ),
+                                         ],
                                        ),
-                                     ),
-                                     Expanded(
-                                       flex:2,
-                                       child: Text("Volume",
-                                         style: TextStyle(
-                                           fontSize: 20,
-                                           fontWeight: FontWeight.bold
-                                         ),
-                                       ),
-                                     ),
-                                   ],
-                                 ),
-                             ),
-                           ]
-                          );
-                        }
-                        index-=1;
-                        return Container(
-                          decoration: BoxDecoration(
-                            color:Colors.black87,
-                            borderRadius: BorderRadius.circular(1)
-                          ),
-                          child: Column(children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: 6.0),
-                                  child: Text("${snapshot.data.data[index].rank}",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.white70,
-                                      )
-                                  ),
+                                   ),
+                                 ]
+                                );
+                              }
+                              index-=1;
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color:Colors.black87,
+                                  borderRadius: BorderRadius.circular(1)
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: CircleAvatar(
-                                     backgroundImage: NetworkImage('https://static.coincap.io/assets/icons/${snapshot.data.data[index].symbol.toLowerCase()}@2x.png'),
-                                    backgroundColor: Colors.black,
-                                    radius: 17,
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 3,
-                                  child: Column(
-                                 crossAxisAlignment: CrossAxisAlignment.center,
+                                child: Column(children: [
+                                  Row(
                                     children: [
                                       Padding(
-                                        padding: EdgeInsets.only(left: 4.0,top: 4.0,bottom:4.0),
-                                        child: Text("${snapshot.data.data[index].name}",
-                                          style: TextStyle(
-                                          fontSize: 15,
-                                            color: Colors.white70,
-                                          )
-                                        ),
-                                      ),
-                                      Text("${snapshot.data.data[index].symbol}",
-                                          style: TextStyle(
-                                          fontSize: 15,
-                                            color: Colors.white70,
-                                          )
-
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  flex:6,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Text( double.parse(snapshot.data.data[index].priceUsd) > 1 ? "\$${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+3).replaceAllMapped(reg, mathFunc)}" : "\$${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+5)}",
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                              fontSize: 16,
-                                                  color: Colors.white70,
-                                            )
-                                            ),
-                                          ),
-
-                                      Text( double.parse(snapshot.data.data[index].changePercent24Hr) > 0 ? "+${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+3)}%": "${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+3)}%",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: double.parse(snapshot.data.data[index].changePercent24Hr) > 0 ? Colors.green : Colors.red,
-                                          )
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  flex:4,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child:  Text("\$${NumberFormat.compact().format(double.parse(snapshot.data.data[index].volumeUsd24Hr))}",
-                                            textAlign: TextAlign.right,
+                                        padding: EdgeInsets.only(left: 6.0),
+                                        child: Text("${snapshot.data.data[index].rank}",
                                             style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w300,
                                               color: Colors.white70,
                                             )
                                         ),
                                       ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: CircleAvatar(
+                                           backgroundImage: NetworkImage('https://static.coincap.io/assets/icons/${snapshot.data.data[index].symbol.toLowerCase()}@2x.png'),
+                                          backgroundColor: Colors.black,
+                                          radius: 17,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 3,
+                                        child: Column(
+                                       crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(left: 4.0,top: 4.0,bottom:4.0),
+                                              child: Text("${snapshot.data.data[index].name}",
+                                                style: TextStyle(
+                                                fontSize: 15,
+                                                  color: Colors.white70,
+                                                )
+                                              ),
+                                            ),
+                                            Text("${snapshot.data.data[index].symbol}",
+                                                style: TextStyle(
+                                                fontSize: 15,
+                                                  color: Colors.white70,
+                                                )
+
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex:6,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.all(4.0),
+                                                  child: Text( double.parse(snapshot.data.data[index].priceUsd) > 1 ? "\$${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+3).replaceAllMapped(reg, mathFunc)}" : "\$${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+5)}",
+                                                      textAlign: TextAlign.right,
+                                                      style: TextStyle(
+                                                    fontSize: 16,
+                                                        color: Colors.white70,
+                                                  )
+                                                  ),
+                                                ),
+                                            Text( double.parse(snapshot.data.data[index].changePercent24Hr) > 0 ? "+${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+3)}%": "${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+3)}%",
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: double.parse(snapshot.data.data[index].changePercent24Hr) > 0 ? Colors.green : Colors.red,
+                                                )
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex:4,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child:  Text("\$${NumberFormat.compact().format(double.parse(snapshot.data.data[index].volumeUsd24Hr))}",
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.white70,
+                                                  )
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
-                                ),
-                              ],
-                            ),
-                            Divider(
-                              color:Colors.black45,
-                              indent: 20,
-                              endIndent: 20,
-                              thickness: 2,
-                            ),
-                          ]),
-                        );
-                      },
-                    );
+                                  Divider(
+                                    color:Colors.black45,
+                                    indent: 20,
+                                    endIndent: 20,
+                                    thickness: 2,
+                                  ),
+                                ]),
+                              );
+                            },
+                            itemCount: snapshot.data.data.length,
+                          ),
+                          onRefresh: _getData,
+                        ),
+
+                      );
+
+                  }
               }
               // By default, show a loading spinner.
               return CircularProgressIndicator();
@@ -344,5 +354,17 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+  //This
+  Future<void> _getData() async {
+    setState(() {
+      fetchData();
+      futureData = fetchData();
+    });
+  }
+  void initState() {
+    super.initState();
+    fetchData();
+    futureData = fetchData();
   }
 }
