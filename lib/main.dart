@@ -186,7 +186,7 @@ class _MyAppState extends State<MyApp> {
                                 return Column(
                                  children:[
                                    Card(
-                                     // color: Colors.black87,
+                                      // color: Colors.black87,
                                      child:
                                        Row(
                                          children:[
@@ -242,7 +242,7 @@ class _MyAppState extends State<MyApp> {
                               index-=1;
                               return Container(
                                 decoration: BoxDecoration(
-                                  color:Colors.black87,
+                                  color:Colors.black,
                                   borderRadius: BorderRadius.circular(1)
                                 ),
                                 child: Column(children: [
@@ -335,10 +335,10 @@ class _MyAppState extends State<MyApp> {
                                     ],
                                   ),
                                   Divider(
-                                    color:Colors.black45,
+                                    color:Colors.white,
                                     indent: 20,
                                     endIndent: 20,
-                                    thickness: 2,
+                                    thickness: 0.5,
                                   ),
                                 ]),
                               );
