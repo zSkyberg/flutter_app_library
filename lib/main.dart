@@ -152,11 +152,12 @@ class _MyAppState extends State<MyApp> {
       color:Colors.black,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-         primaryColor: Colors.black54,
+         primaryColor: Colors.black,
+
       ),
       home: Scaffold(
         appBar: AppBar(
-
+          centerTitle: true,
           title: Text('CryptoCurrency'),
         ),
         body: Center(
@@ -185,7 +186,7 @@ class _MyAppState extends State<MyApp> {
                                 return Column(
                                  children:[
                                    Card(
-                                     color: Colors.black45,
+                                     // color: Colors.black87,
                                      child:
                                        Row(
                                          children:[
@@ -196,7 +197,8 @@ class _MyAppState extends State<MyApp> {
                                                child: Text("#",
                                          style: TextStyle(
                                                fontSize: 20,
-                                             fontWeight: FontWeight.bold
+                                             fontWeight: FontWeight.bold,
+                                           color:Colors.black,
                                          ),
                                          ),
                                              ),
@@ -206,7 +208,8 @@ class _MyAppState extends State<MyApp> {
                                              child: Text("Name",
                                                style: TextStyle(
                                                  fontSize: 20,
-                                                   fontWeight: FontWeight.bold
+                                                   fontWeight: FontWeight.bold,
+                                                 color:Colors.black,
                                                ),
                                              ),
                                            ),
@@ -215,7 +218,8 @@ class _MyAppState extends State<MyApp> {
                                              child: Text("Price/24h",
                                                style: TextStyle(
                                                  fontSize: 20,
-                                                   fontWeight: FontWeight.bold
+                                                   fontWeight: FontWeight.bold,
+                                                 color:Colors.black,
                                                ),
                                              ),
                                            ),
@@ -224,7 +228,8 @@ class _MyAppState extends State<MyApp> {
                                              child: Text("Volume",
                                                style: TextStyle(
                                                  fontSize: 20,
-                                                 fontWeight: FontWeight.bold
+                                                 fontWeight: FontWeight.bold,
+                                                 color:Colors.black,
                                                ),
                                              ),
                                            ),
@@ -249,7 +254,7 @@ class _MyAppState extends State<MyApp> {
                                             style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.w300,
-                                              color: Colors.white70,
+                                              color: Colors.white,
                                             )
                                         ),
                                       ),
@@ -271,14 +276,14 @@ class _MyAppState extends State<MyApp> {
                                               child: Text("${snapshot.data.data[index].name}",
                                                 style: TextStyle(
                                                 fontSize: 15,
-                                                  color: Colors.white70,
+                                                  color: Colors.white,
                                                 )
                                               ),
                                             ),
                                             Text("${snapshot.data.data[index].symbol}",
                                                 style: TextStyle(
                                                 fontSize: 15,
-                                                  color: Colors.white70,
+                                                  color: Colors.white,
                                                 )
 
                                             ),
@@ -296,7 +301,7 @@ class _MyAppState extends State<MyApp> {
                                                       textAlign: TextAlign.right,
                                                       style: TextStyle(
                                                     fontSize: 16,
-                                                        color: Colors.white70,
+                                                        color: Colors.white,
                                                   )
                                                   ),
                                                 ),
@@ -320,7 +325,7 @@ class _MyAppState extends State<MyApp> {
                                                   textAlign: TextAlign.right,
                                                   style: TextStyle(
                                                     fontSize: 15,
-                                                    color: Colors.white70,
+                                                    color: Colors.white,
                                                   )
                                               ),
                                             ),
