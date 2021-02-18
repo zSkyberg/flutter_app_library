@@ -320,7 +320,7 @@ class _MyAppState extends State<MyApp> {
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.all(4.0),
+                                              padding: const EdgeInsets.all(5.0),
                                               child:  Text("\$${NumberFormat.compact().format(double.parse(snapshot.data.data[index].volumeUsd24Hr))}",
                                                   textAlign: TextAlign.right,
                                                   style: TextStyle(
@@ -335,10 +335,10 @@ class _MyAppState extends State<MyApp> {
                                     ],
                                   ),
                                   Divider(
-                                    color:Colors.white,
+                                    color:Colors.white70,
                                     indent: 20,
                                     endIndent: 20,
-                                    thickness: 0.5,
+                                  thickness: 0.2,
                                   ),
                                 ]),
                               );
