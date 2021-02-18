@@ -6,32 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/intl_standalone.dart';
 
-import 'dart:convert';
-import 'package:flutter_easyrefresh/bezier_circle_header.dart';
-import 'package:flutter_easyrefresh/bezier_hour_glass_header.dart';
-import 'package:flutter_easyrefresh/phoenix_footer.dart';
-import 'package:flutter_easyrefresh/taurus_header.dart';
-import 'package:flutter_easyrefresh/phoenix_header.dart';
-// import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:flutter_easyrefresh/taurus_footer.dart';
-import 'package:flutter_easyrefresh/material_header.dart';
-import 'package:flutter_easyrefresh/delivery_header.dart';
-import 'package:flutter_easyrefresh/material_footer.dart';
-import 'package:flutter_easyrefresh/ball_pulse_header.dart';
-import 'package:flutter_easyrefresh/bezier_bounce_footer.dart';
-import 'package:flutter_easyrefresh/ball_pulse_footer.dart';
-// import 'package:pull_to_refresh/pull_to_refresh.dart';
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter_easyrefresh/src/footer/footer.dart';
-// import 'package:footer/footer.dart';
-import 'package:footer/footer_view.dart';
 class Dataa {
   Dataa({
     @required this.data,
     @required this.timestamp,
   });
-
+  //*3*List<Data> "data" is called on widget. snapshot.data."data".
   List<Data> data;
+  //*3*
   int timestamp;
 
   factory Dataa.fromJson(Map<String, dynamic> json) => Dataa(
@@ -113,9 +95,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  //*4*to reach out Future<Dataa> where our data is called from url
   Future<Dataa> futureData;
-  static String systemLocale = 'en_US';
-
+  //*4*
   Future<Dataa> fetchData() async {
     var url = 'https://api.coincap.io/v2/assets';
     final response = await http.get(url);
@@ -137,11 +119,11 @@ class _MyAppState extends State<MyApp> {
       // If the server did not return a 200 OK response,// then throw an exception.
       throw Exception('Failed to load album');
     }
-
   }
+  //*2*For putting commas every 3 digits.
   RegExp reg = new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
   Function mathFunc = (Match match) => '${match[1]},';
-
+  //*2*
   @override
   Widget build(BuildContext context) {
     // setState(() {
@@ -153,7 +135,6 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
          primaryColor: Colors.black,
-
       ),
       home: Scaffold(
         appBar: AppBar(
@@ -162,7 +143,9 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: FutureBuilder<Dataa>(
+            //*5*this is where we define our data that we declared in *4*
             future: futureData,
+            //*5*
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
@@ -179,14 +162,18 @@ class _MyAppState extends State<MyApp> {
                     );
                   } else {
                     return Center(
+                        //*6*RefreshIndicator is for refreshing page with pulling
                         child: RefreshIndicator(
+                          //*6*
                           child: ListView.builder(
                             itemBuilder: (context, index) {
+                              //*1*this code is for the header. If index is 0, it first prints header, after that, index is being zeroed again, so that rank 1 cryptocurrency shows up.
                               if(index == 0){
                                 return Column(
                                  children:[
                                    Card(
                                       // color: Colors.black87,
+                                     elevation:100,
                                      child:
                                        Row(
                                          children:[
@@ -240,6 +227,7 @@ class _MyAppState extends State<MyApp> {
                                 );
                               }
                               index-=1;
+                              //*1*########################################################################################################################
                               return Container(
                                 decoration: BoxDecoration(
                                   color:Colors.black,
@@ -249,8 +237,10 @@ class _MyAppState extends State<MyApp> {
                                   Row(
                                     children: [
                                       Padding(
-                                        padding: EdgeInsets.only(left: 6.0),
+                                         padding: EdgeInsets.only(left: 6.0),
+                                        //*7*With Future builder, we use snapshot. Snapshot.data comes from ittself, second data is the data ve declared in *3*
                                         child: Text("${snapshot.data.data[index].rank}",
+                                            //*7*##################################################################################################
                                             style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.w300,
@@ -297,6 +287,7 @@ class _MyAppState extends State<MyApp> {
                                           children: [
                                                 Padding(
                                                   padding: const EdgeInsets.all(4.0),
+                                                  //if the value is greater than 1, display with
                                                   child: Text( double.parse(snapshot.data.data[index].priceUsd) > 1 ? "\$${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+3).replaceAllMapped(reg, mathFunc)}" : "\$${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+5)}",
                                                       textAlign: TextAlign.right,
                                                       style: TextStyle(
