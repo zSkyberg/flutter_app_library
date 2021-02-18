@@ -20,7 +20,7 @@ import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/ball_pulse_header.dart';
 import 'package:flutter_easyrefresh/bezier_bounce_footer.dart';
 import 'package:flutter_easyrefresh/ball_pulse_footer.dart';
-
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 class Dataa {
   Dataa({
     @required this.data,
@@ -129,6 +129,7 @@ class _MyAppState extends State<MyApp> {
       print("Hello?");
       print(json["data"].length);
       return Dataa.fromJson(json);
+
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
@@ -140,6 +141,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {});
     return MaterialApp(
       title: 'CryptoCurrency',
       color:Colors.black,
@@ -238,7 +240,7 @@ class _MyAppState extends State<MyApp> {
                             Row(
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(left: 4.0),
+                                  padding: EdgeInsets.only(left: 6.0),
                                   child: Text("${snapshot.data.data[index].rank}",
                                       style: TextStyle(
                                         fontSize: 20,
@@ -267,7 +269,6 @@ class _MyAppState extends State<MyApp> {
                                           fontSize: 15,
                                             color: Colors.white70,
                                           )
-
                                         ),
                                       ),
                                       Text("${snapshot.data.data[index].symbol}",
