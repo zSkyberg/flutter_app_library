@@ -21,14 +21,26 @@ class _AddScreenState extends State<AddScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        primaryColor: Colors.black,
+      ),
       home: Scaffold(
         backgroundColor: Colors.white70,
         appBar: AppBar(
+          actionsIconTheme: IconThemeData(
+              size: 30.0,
+              color: Colors.white,
+              opacity: 10.0
+          ),
           title: Text(
             "Wallet",
         ),
+          centerTitle: true,
           leading: new IconButton(
-            icon: new Icon(Icons.arrow_back),
+            icon: new Icon(Icons.arrow_back,
+            color: Colors.white,
+            ),
             onPressed: () {
              gotoMainPage(context);
             },

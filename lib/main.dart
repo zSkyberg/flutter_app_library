@@ -150,13 +150,11 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Scaffold(
         appBar: AppBar(
-
           actionsIconTheme: IconThemeData(
               size: 30.0,
               color: Colors.white,
               opacity: 10.0
           ),
-
           centerTitle: true,
           title: Text('CryptoCurrency'),
           actions: <Widget>[
