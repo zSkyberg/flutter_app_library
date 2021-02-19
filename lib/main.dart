@@ -5,6 +5,13 @@ import 'package:flutter/material.dart';
 // import 'package:intl/intl_browser.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/intl_standalone.dart';
+import 'package:flutter_app_library/AddScreen.dart';
+
+void gotoAddPage(BuildContext context) {
+  Navigator.of(context).push(
+    MaterialPageRoute(builder: (context) => AddScreen()),
+  );
+}
 
 class Dataa {
   Dataa({
@@ -87,7 +94,12 @@ class Data {
     return data;
   }
 }
-void main() => runApp(new MyApp());
+void main() {
+  runApp(MaterialApp(
+    title: 'Navigation Basics',
+    home: MyApp(),
+  ));
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -144,23 +156,24 @@ class _MyAppState extends State<MyApp> {
               color: Colors.white,
               opacity: 10.0
           ),
+
           centerTitle: true,
           title: Text('CryptoCurrency'),
           actions: <Widget>[
             Padding(
                 padding: EdgeInsets.only(right: 20.0),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Icon(
-                    Icons.add,
-                    size: 26.0,
+                  child: IconButton(
+                    icon: new Icon(Icons.add),
+                    onPressed: (){
+                      gotoAddPage(context);
+                    }
                   ),
-                )
             ),
             Padding(
                 padding: EdgeInsets.only(right: 20.0),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                  },
                   child: Icon(
                       Icons.more_vert
                   ),
