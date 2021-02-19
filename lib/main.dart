@@ -138,8 +138,35 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Scaffold(
         appBar: AppBar(
+
+          actionsIconTheme: IconThemeData(
+              size: 30.0,
+              color: Colors.white,
+              opacity: 10.0
+          ),
           centerTitle: true,
           title: Text('CryptoCurrency'),
+          actions: <Widget>[
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Icon(
+                    Icons.add,
+                    size: 26.0,
+                  ),
+                )
+            ),
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Icon(
+                      Icons.more_vert
+                  ),
+                )
+            ),
+          ],
         ),
         body: Center(
           child: FutureBuilder<Dataa>(
