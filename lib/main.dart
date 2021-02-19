@@ -275,7 +275,6 @@ class _MyAppState extends State<MyApp> {
                                                 fontSize: 15,
                                                   color: Colors.white,
                                                 )
-
                                             ),
                                           ],
                                         ),
@@ -287,8 +286,11 @@ class _MyAppState extends State<MyApp> {
                                           children: [
                                                 Padding(
                                                   padding: const EdgeInsets.all(4.0),
-                                                  //if the value is greater than 1, display with
-                                                  child: Text( double.parse(snapshot.data.data[index].priceUsd) > 1 ? "\$${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+3).replaceAllMapped(reg, mathFunc)}" : "\$${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+5)}",
+                                                      //*8*if the value is greater than 1, display with two significant figures, else display with 4 significant figures
+                                                  child: Text( double.parse(snapshot.data.data[index].priceUsd) > 1
+                                                      ? "\$${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+3).replaceAllMapped(reg, mathFunc)}"
+                                                      : "\$${snapshot.data.data[index].priceUsd.substring(0,snapshot.data.data[index].priceUsd.indexOf('.')+5)}",
+                                                      //*8*#####################################################################################################3
                                                       textAlign: TextAlign.right,
                                                       style: TextStyle(
                                                     fontSize: 16,
@@ -296,10 +298,18 @@ class _MyAppState extends State<MyApp> {
                                                   )
                                                   ),
                                                 ),
-                                            Text( double.parse(snapshot.data.data[index].changePercent24Hr) > 0 ? "+${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+3)}%": "${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+3)}%",
+                                            //*9* in json, minus comes with - but there is no + sign for plus values. So I add it my self
+                                            Text( double.parse(snapshot.data.data[index].changePercent24Hr) > 0
+                                                ? "+${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+3)}%"
+                                                : "${snapshot.data.data[index].changePercent24Hr.substring(0,snapshot.data.data[index].changePercent24Hr.indexOf('.')+3)}%",
+                                                //*9*########################################################################################################
                                                 style: TextStyle(
                                                   fontSize: 16,
-                                                  color: double.parse(snapshot.data.data[index].changePercent24Hr) > 0 ? Colors.green : Colors.red,
+                                                  //*10* This line of code is to make minus signs red and plus sign green
+                                                  color: double.parse(snapshot.data.data[index].changePercent24Hr) > 0
+                                                      ? Colors.green
+                                                      : Colors.red,
+                                                //  *10*##############################################################
                                                 )
                                             ),
                                           ],
@@ -312,7 +322,9 @@ class _MyAppState extends State<MyApp> {
                                           children: [
                                             Padding(
                                               padding: const EdgeInsets.all(5.0),
+                                              //*11*NumberFormat.Compact().format() is to make 1.000.000 1M and 1.000 1K.
                                               child:  Text("\$${NumberFormat.compact().format(double.parse(snapshot.data.data[index].volumeUsd24Hr))}",
+                                                  //*11*#########################################################################################################33
                                                   textAlign: TextAlign.right,
                                                   style: TextStyle(
                                                     fontSize: 15,
@@ -334,6 +346,7 @@ class _MyAppState extends State<MyApp> {
                                 ]),
                               );
                             },
+                            //*12* how long will the listview build itself.###################################################
                             itemCount: snapshot.data.data.length,
                           ),
                           onRefresh: _getData,
