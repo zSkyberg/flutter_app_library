@@ -19,15 +19,21 @@ void gotoMainPage(BuildContext context) {
 
 
 class AddScreen extends StatefulWidget {
+  AddScreen({Key key}) : super(key: key);
   @override
   _AddScreenState createState() => _AddScreenState();
+
 }
 
 class _AddScreenState extends State<AddScreen> {
-final deneme = TextInputType.text;
+  TextEditingController myController = TextEditingController();
+
+
+  TextEditingController nameController = TextEditingController();
+  String fullName = '';
 @override
   Widget build(BuildContext context) {
-String text = "fdfd";
+String textt = "ds";
       return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -54,37 +60,30 @@ String text = "fdfd";
             },
           ),
       ),
-        body: Container(
-            padding: const EdgeInsets.all(40.0),
-            // child: new Column(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: <Widget>[
-            //     new TextField(
-            //       decoration: new InputDecoration(labelText: "Enter your number"),
-            //       keyboardType: TextInputType.number,
-            //       inputFormatters: <TextInputFormatter>[
-            //         FilteringTextInputFormatter.digitsOnly
-            //       ], // Only numbers can be entered
-            //     ),
-            //     RaisedButton(
-            //       onPressed:(){
-            //
-            //       },
-            //       child: Text('Submit'),
-            //       elevation: 8,
-            //     ),
-            //     Text(text),
-            //
-            //   ],
-            // )
-        ),
-        floatingActionButton: new FloatingActionButton(
-          focusColor: Colors.grey,
-          tooltip: 'Increment',
-          child: new Icon(Icons.add),
-        ),
+        body: Center(child: Column(children: <Widget>[
+          Container(
+              margin: EdgeInsets.all(20),
+              child: TextField(
+                controller: nameController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Full Name',
+                ),
+                onChanged: (text) {
+                  setState(() {
+                    fullName = text;
+                    //you can access nameController in its scope to get
+                    // the value of text entered as shown below
+                    //fullName = nameController.text;
+                  });
+                },
+              )),
+          Container(
+            margin: EdgeInsets.all(20),
+            child: Text(fullName),
+          )
+        ]))
       ),
-
     );
   }
 
