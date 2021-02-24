@@ -19,7 +19,7 @@ void gotoMainPage(BuildContext context) {
 
 
 class AddScreen extends StatefulWidget {
-  AddScreen({Key key}) : super(key: key);
+   AddScreen({Key key}) : super(key: key);
   @override
   _AddScreenState createState() => _AddScreenState();
 
@@ -27,12 +27,36 @@ class AddScreen extends StatefulWidget {
 
 class _AddScreenState extends State<AddScreen> {
   TextEditingController myController = TextEditingController();
-
+  Future<Dataa> gelecekData;
 
   TextEditingController nameController = TextEditingController();
-  String fullName = '';
+  String fullName = '0.000';
+  Future<Dataa> fetchData() async {
+    var url = 'https://api.coincap.io/v2/assets';
+    final response = await http.get(url);
+    // print(response.body);
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      Map<String, dynamic> json = jsonDecode(response.body);
+      // print(json["data"][0]);
+      // final a = json["data"];
+      // print("Hello?");
+      // print(json["data"]);
+      setState(() {
+        json = jsonDecode(response.body);
+      });
+      return Dataa.fromJson(json);
+    }
+    else {
+      // If the server did not return a 200 OK response,// then throw an exception.
+      throw Exception('Failed to load album');
+    }
+  }
 @override
   Widget build(BuildContext context) {
+  setState(() {
+  });
 String textt = "ds";
       return MaterialApp(
       theme: ThemeData(
@@ -60,31 +84,64 @@ String textt = "ds";
             },
           ),
       ),
-        body: Center(child: Column(children: <Widget>[
-          Container(
-              margin: EdgeInsets.all(20),
-              child: TextField(
-                controller: nameController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Full Name',
-                ),
-                onChanged: (text) {
-                  setState(() {
-                    fullName = text;
-                    //you can access nameController in its scope to get
-                    // the value of text entered as shown below
-                    //fullName = nameController.text;
-                  });
-                },
-              )),
-          Container(
-            margin: EdgeInsets.all(20),
-            child: Text(fullName),
-          )
-        ]))
+        body: Center(
+            child: FutureBuilder<Dataa>(
+              future: gelecekData,
+              builder: (context , snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                      return Text('none');
+                    case ConnectionState.waiting:
+                      return Center(child: CircularProgressIndicator());
+                    case ConnectionState.active:
+                      return Text('');
+                    case ConnectionState.done:
+                      if (snapshot.hasError) {
+                        return Text(
+                          '${snapshot.error}',
+                          style: TextStyle(color: Colors.red),
+                        );
+              } else {
+                        print("${snapshot.data.data.length}");
+                   return Center(
+                    child: Column(
+                      children: [
+                        TextField(
+                        controller: nameController,
+                        decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: '0.00000',
+                        ),
+                        onChanged: (text) {
+                        setState(() {
+                          if(double.parse(text)>=0){
+                            fullName = text;
+                          }
+                      else fullName='0.00';
+                        //you can access nameController in its scope to get
+                        // the value of text entered as shown below
+                        //fullName = nameController.text;
+                        });
+                        },
+                        ),
+                        Text(fullName),
+                        Text('${double.parse(snapshot.data.data[1].priceUsd)*double.parse(fullName)}'),
+                      ],
+                    ),
+
+                    );
+  }
+  }
+              }
+              ),
+            ),
       ),
-    );
+      );
+  }
+  void initState() {
+    super.initState();
+    fetchData();
+    gelecekData = fetchData();
   }
 
 }
