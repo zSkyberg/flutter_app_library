@@ -117,7 +117,7 @@ String textt = "ds";
                           if(double.parse(text)>=0){
                             fullName = text;
                           }
-                      else fullName='0.00';
+                      else fullName='0.000';
                         //you can access nameController in its scope to get
                         // the value of text entered as shown below
                         //fullName = nameController.text;
