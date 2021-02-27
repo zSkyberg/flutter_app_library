@@ -110,6 +110,8 @@ class _MyAppState extends State<MyApp> {
   //*4*to reach out Future<Dataa> where our data is called from url
   Future<Dataa> futureData;
   //*4*
+  TextEditingController nameController = TextEditingController();
+  String fullName = '0.000';
   Future<Dataa> fetchData() async {
     var url = 'https://api.coincap.io/v2/assets';
     final response = await http.get(url);
@@ -207,61 +209,69 @@ class _MyAppState extends State<MyApp> {
                             itemBuilder: (context, index) {
                               //*1*this code is for the header. If index is 0, it first prints header, after that, index is being zeroed again, so that rank 1 cryptocurrency shows up.
                               if(index == 0){
-                                return Column(
-                                 children:[
-                                   Card(
-                                      // color: Colors.black87,
-                                     elevation:100,
-                                     child:
-                                       Row(
-                                         children:[
-                                           Expanded(
-                                             flex:1,
-                                             child: Padding(
-                                               padding: EdgeInsets.only(left: 4.0),
-                                               child: Text("#",
-                                         style: TextStyle(
-                                               fontSize: 20,
-                                             fontWeight: FontWeight.bold,
-                                           color:Colors.black,
-                                         ),
-                                         ),
-                                             ),
-                                           ),
-                                           Expanded(
-                                             flex: 3,
-                                             child: Text("Name",
+                                return Center(
+                                  child: Column(
+
+                                    children: [
+                                      Text('${double.parse(snapshot.data.data[index].priceUsd)*double.parse(fullName)}'),
+                                      Column(
+                                       children:[
+                                         Card(
+                                            // color: Colors.black87,
+                                           elevation:100,
+                                           child:
+                                             Row(
+                                               children:[
+                                                 Expanded(
+                                                   flex:1,
+                                                   child: Padding(
+                                                     padding: EdgeInsets.only(left: 4.0),
+                                                     child: Text("#",
                                                style: TextStyle(
-                                                 fontSize: 20,
+                                                     fontSize: 20,
                                                    fontWeight: FontWeight.bold,
                                                  color:Colors.black,
                                                ),
-                                             ),
-                                           ),
-                                           Expanded(
-                                             flex:4,
-                                             child: Text("Price/24h",
-                                               style: TextStyle(
-                                                 fontSize: 20,
-                                                   fontWeight: FontWeight.bold,
-                                                 color:Colors.black,
                                                ),
+                                                   ),
+                                                 ),
+                                                 Expanded(
+                                                   flex: 3,
+                                                   child: Text("Name",
+                                                     style: TextStyle(
+                                                       fontSize: 20,
+                                                         fontWeight: FontWeight.bold,
+                                                       color:Colors.black,
+                                                     ),
+                                                   ),
+                                                 ),
+                                                 Expanded(
+                                                   flex:4,
+                                                   child: Text("Price/24h",
+                                                     style: TextStyle(
+                                                       fontSize: 20,
+                                                         fontWeight: FontWeight.bold,
+                                                       color:Colors.black,
+                                                     ),
+                                                   ),
+                                                 ),
+                                                 Expanded(
+                                                   flex:2,
+                                                   child: Text("Volume",
+                                                     style: TextStyle(
+                                                       fontSize: 20,
+                                                       fontWeight: FontWeight.bold,
+                                                       color:Colors.black,
+                                                     ),
+                                                   ),
+                                                 ),
+                                               ],
                                              ),
-                                           ),
-                                           Expanded(
-                                             flex:2,
-                                             child: Text("Volume",
-                                               style: TextStyle(
-                                                 fontSize: 20,
-                                                 fontWeight: FontWeight.bold,
-                                                 color:Colors.black,
-                                               ),
-                                             ),
-                                           ),
-                                         ],
-                                       ),
-                                   ),
-                                 ]
+                                         ),
+                                       ]
+                                      ),
+                                    ],
+                                  ),
                                 );
                               }
                               index-=1;
@@ -371,6 +381,31 @@ class _MyAppState extends State<MyApp> {
                                               ),
                                             ),
                                           ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex:2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: TextField(
+                                            controller: nameController,
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              labelText: '0.00000',
+                                              fillColor: Colors.white70,
+                                            ),
+                                            onChanged: (text) {
+                                              setState(() {
+                                                if(double.parse(text)>=0 ){
+                                                  fullName = text;
+                                                }
+                                                else fullName='0.000';
+                                                //you can access nameController in its scope to get
+                                                // the value of text entered as shown below
+                                                //fullName = nameController.text;
+                                              });
+                                            },
+                                          ),
                                         ),
                                       ),
                                     ],

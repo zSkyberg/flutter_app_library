@@ -114,7 +114,7 @@ String textt = "ds";
                         ),
                         onChanged: (text) {
                         setState(() {
-                          if(double.parse(text)>=0){
+                          if(double.parse(text)>=0 ){
                             fullName = text;
                           }
                       else fullName='0.000';
